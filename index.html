@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park-me-pro!</title>
+    <!-- ###############################################################--must needed -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Andika+New+Basic:ital@1&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Andika+New+Basic:ital@1&display=swap" rel="stylesheet">
+    <!-- ########################################################################################## -->
+    <style>
+        body {
+            font-family: 'Andika New Basic', sans-serif;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #ccc;
+            position: fixed;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #4caf50;
+            width: 0%;
+            position: fixed;
+        }
+    </style>
+    <!-- ###############################################################---slider css  -->
+    <style>
+        body {
+            font-family: 'Andika New Basic', sans-serif;
+            margin: 0
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 50%;
+            position: static;
+            margin: auto;
+        }
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* The dots/bullets/indicators */
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active,
+        .dot:hover {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* On smaller screens, decrease text size */
+        @media only screen and (max-width: 300px) {
+
+            .prev,
+            .next,
+            .text {
+                font-size: 11px
+            }
+        }
+    </style>
+    <!-- #####################################################################################   -->
+    <!-- ############################################################################## for diffrent image  -->
+    <script LANGUAGE="JavaScript">
+        var theImages = new Array()
+        theImages[0] = 'parking1.jpg'
+        theImages[1] = 'parking2.jpg'
+        theImages[2] = 'parking3.jpg'
+        theImages[3] = 'parking4.jpg'
+        theImages[4] = 'parking5.jpg'
+        theImages[5] = 'parking6.jpg'
+        theImages[6] = 'parking7.jpg'
+        theImages[7] = 'parking8.jpg'
+        theImages[8] = 'parking9.jpg'
+        theImages[9] = 'parking10.jpg'
+        var j = 0
+        var p = theImages.length;
+        var preBuffer = new Array()
+        for (i = 0; i < p; i++) {
+            preBuffer[i] = new Image()
+            preBuffer[i].src = theImages[i]
+        }
+        var whichImage = Math.round(Math.random() * (p - 1));
+        function showImage() {
+            document.write('<img src="' + theImages[whichImage] + '">');
+        }
+    </script>
+    <!-- ########################################################################################################  -->
+    <!-- ############################################################################################## - image sliding  -->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "inline";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+    <!-- ###########################################################################################################  -->
+    <!-- ############################################################# for scrooling -->
+    <script>
+        $(document).ready(function () {
+            $("a").on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- ########################################################################################## -->
+    <!-- ################################################################################## - progress bar -->
+    <script>
+        // When the user scrolls the page, execute myFunction 
+        window.onscroll = function () { myFunction() };
+
+        function myFunction() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+    <!-- ########################################################################################## -->
+</head>
+
+<body>
+    <!-- This code contain the header fileof our code#################################################################### -->
+    <header class="text-gray-500 bg-gray-900 body-font" style="position: fixed; width:100%;">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+                <a href="#about" class="mr-5 hover:text-white">About Our Project</a>
+                <a class="mr-5 hover:text-white" href="#ourteam">Our Team</a>
+                <a href="final project report.pdf" class="mr-5 hover:text-white">Our Report</a>
+                <!-- <a class="hover:text-white">Fourth Link</a> -->
+            </nav>
+            <a href="#top"
+                class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
+                <span class="ml-3 text-xl xl:block lg:hidden">Park-Me-Pro!</span>
+            </a>
+            <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+                <button onclick="location.href = 'contact.html';" id="contactbtn"
+                    class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">Contact-us!!
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- #################################################################################################-progreass bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+        <!-- ######################################################################################################################## -->
+    </header>
+    <!-- ######################################################################################################################## -->
+    <!-- this code contain the containt of our website ########################################################################## -->
+    <section class="text-gray-500 bg-white-900 body-font" id="top">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+            <div style="width: 40%; height: 20%;" class="object-cover object-center rounded">
+                <script LANGUAGE="JavaScript">
+                    showImage();
+                </script>
+            </div>
+            <div class="text-center lg:w-2/3 w-full">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">why is parking a issue in our
+                    coutry</h1>
+                <p class="leading-relaxed mb-8">The problem is simple – even as the number of vehicles has expanded,
+                    parking space in Indian cities has remained constant or reduced due to a growing population.
+                    Especially when land is limited and expensive, like in metropolises, rising parking demand spaces
+                    puts immense pressure on it. Sample this, in New York midtown area, road area per person stands at
+                    33.3 sqm while in Mumbai’s Null Bazaar, it is no more than 1.7 sqm. This means that a vehicle in
+                    Mumbai imposes a cost nearly 20 times as much as one in New York.</p>
+                <div class="flex justify-center" id="about">
+                    <button 
+                        class="ml-4 inline-flex text-white-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"><a href="https://blog.getmyparking.com/2019/02/14/issues-with-parking-in-indian-metropolises/" target="_blank">read
+                        more!</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #############################################################################################################containt end -->
+    <!-- ######################################################################################################### about over proj  -->
+    <section>
+        <div class="flex flex-col text-center w-full mb-20">
+            <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">ABOUT OUR PROJECT</h1>
+        </div>
+        <div class="slideshow-container">
+
+            <div class="mySlides fade" style="display:inline;" >
+                <img src="PMP1_finAL.jpg">
+            </div>
+    
+            <div class="mySlides fade" style="display: none;">
+                <img src="pmp3.jpg">
+            </div>
+    
+            <div class="mySlides fade" style="display: none;">
+                <img src="pmp4.jpg" style="width:100%">
+            </div>
+
+        </div>
+    
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        <section class="text-gray-500 bg-white-900 body-font">
+            <div class="container mx-auto flex px-5 items-center justify-center flex-col" style="padding-top: 3em; padding-bottom: 6em;">
+                <div class="text-center lg:w-2/3 w-full">
+                    <p class="leading-relaxed mb-8">Today one of the most common problem is over crowding and traffic, and one of the reason is bad
+                        parking facilities. As the world population increases and also modern world have minimum capital to bought the
+                        vehicle and machinery so this problem is not going to be solved without taking any prior steps toward it And to
+                        overcome this situation our real-time parking sport based application can be used to solve many problems.
+                       <p> Park me pro is an application that will provide the nearby location of the parking spot and real-time
+                        data of the the available and filled parking spots later it will also provide the facility of pre-booking the parking
+                        spot through a online payment gateway. Which will be helpful for the user to bypass the long queues and manage
+                        there time in more efficient work</p></p>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- ########################################################################################################################  -->
+    <!-- ###########################################################################################---our Team Seaction -->
+    <section class="text-gray-700 body-font"  id="ourteam">
+        <div class="container px-5 mx-auto" style="padding-bottom: 3em;">
+            <div class="flex flex-col text-center w-full mb-20">
+                <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">OUR TEAM</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base"> The real people behind all the smoke and mirrors!
+                </p>
+            </div>
+            <div class="flex flex-wrap -m-4">
+                <div class="p-4" style="width: 33%;">
+                    <div class="h-full flex flex-col items-center text-center">
+                        <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"
+                            src="Dhruvin.jpeg">
+                        <div class="w-full">
+                            <h2 class="title-font font-medium text-lg text-gray-900">Dhruvin Lad</h2>
+                            <h3 class="text-gray-500 mb-3">Web Developer</h3>
+                            <p class="mb-4">If you think math is hard, try web design.
+                            </p>
+                            <span class="inline-flex">
+                                <a class="text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4" style="width: 33%;">
+                    <div class="h-full flex flex-col items-center text-center">
+                        <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"
+                            src="yadav.jpeg ">
+                        <div class="w-full">
+                            <h2 class="title-font font-medium text-lg text-gray-900">Abhishek Yadav</h2>
+                            <h3 class="text-gray-500 mb-3">Andriod Developer</h3>
+                            <p class="mb-4">The future of mobile is the future of online. 
+                            </p>
+                            <span class="inline-flex">
+                                <a class="text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 " style="width: 33%;">
+                    <div class="h-full flex flex-col items-center text-center">
+                        <img alt="team" class="flex-shrink-0 w-full h-56 object-cover object-center mb-4" style="border-radius: 1.5rem;"
+                            src="WhatsApp Image 2020-12-26 at 10.16.02 PM (1).jpeg">
+                        <div class="w-full">
+                            <h2 class="title-font font-medium text-lg text-gray-900">Dhruv Desai</h2>
+                            <h3 class="text-gray-500 mb-3">Database Adminstrator</h3>
+                            <p class="mb-4">To study and not think is a waste. To think and not study is dangerous.
+                            </p>
+                            <span class="inline-flex">
+                                <a class="text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a class="ml-2 text-gray-500">
+                                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path
+                                            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #################################################################################################3-------ends here -->
+    <!-- this is the footer of our page####################################################################### -->
+    <footer class="text-gray-500 bg-gray-900 body-font">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+            <a class="flex title-font font-medium items-center md:justify-start justify-center text-white" href="#top">
+                <span class="ml-3 text-xl">park-me-pro!</span>
+            </a>
+            <p class="text-sm text-gray-600 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">©
+                2020 park-me-pro —
+                <a href="https://twitter.com/laddhruvin" target="_blank" rel="noopener noreferrer"
+                    class="mr-5 hover:text-white">@Dhruvin</a>
+            </p>
+            <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+                <a href="https://www.facebook.com/Dhl846" class="text-gray-600" target="_blank">
+                    <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        class="w-5 h-5" viewBox="0 0 24 24" onMouseOver="this.style.color='white'"
+                        onMouseOut="this.style.color='currentColor'">
+                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/laddhruvin" class="ml-3 text-gray-600" target="_blank">
+                    <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        class="w-5 h-5" viewBox="0 0 24 24" onMouseOver="this.style.color='white'"
+                        onMouseOut="this.style.color='currentColor'">
+                        <path
+                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/laddhruvin" class="ml-3 text-gray-600" target="_blank">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24" onMouseOver="this.style.color='white'"
+                        onMouseOut="this.style.color='currentColor'">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/dhruvin-lad-30410b158" class="ml-3 text-gray-600" target="_blank">
+                    <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24" onMouseOver="this.style.color='white'"
+                        onMouseOut="this.style.color='currentColor'">
+                        <path stroke="none"
+                            d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z">
+                        </path>
+                        <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                    </svg>
+                </a>
+            </span>
+        </div>
+    </footer>
+    <!-- ################################################################################################ footer end -->
+</body>
+
+</html>
