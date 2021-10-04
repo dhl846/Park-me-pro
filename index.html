@@ -169,6 +169,7 @@
     <script>
         $(document).ready(function () {
             $("a").on('click', function (event) {
+                console.log("Working");
                 if (this.hash !== "") {
                     event.preventDefault();
                     var hash = this.hash;
